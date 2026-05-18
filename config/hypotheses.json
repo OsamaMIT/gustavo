@@ -1,0 +1,56 @@
+[
+  {"id": "front_aero_load_limitation", "category": "aero_balance", "meaning": "insufficient front aero load in the relevant operating state"},
+  {"id": "rear_aero_load_limitation", "category": "aero_balance", "meaning": "insufficient rear aero load in the relevant operating state"},
+  {"id": "aero_balance_forward_shift", "category": "aero_balance", "meaning": "aero balance migrates too far forward for the observed phase or speed"},
+  {"id": "aero_balance_rearward_shift", "category": "aero_balance", "meaning": "aero balance migrates too far rearward for the observed phase or speed"},
+  {"id": "excess_drag_configuration", "category": "aero_balance", "meaning": "aero configuration produces excessive drag for the required straight-line performance"},
+
+  {"id": "platform_aero_sensitivity", "category": "platform_aero", "meaning": "ride height, pitch, roll, or platform behavior changes aero balance"},
+  {"id": "ride_height_sensitivity", "category": "platform_aero", "meaning": "performance is sensitive to absolute ride height or ride-height operating window"},
+  {"id": "pitch_sensitivity", "category": "platform_aero", "meaning": "pitch state changes aero balance or load delivery"},
+  {"id": "roll_sensitivity", "category": "platform_aero", "meaning": "roll state changes aero balance or tire loading"},
+  {"id": "bottoming_induced_aero_loss", "category": "platform_aero", "meaning": "bottoming or plank contact causes aero load loss or instability"},
+  {"id": "kerb_platform_disturbance", "category": "platform_aero", "meaning": "kerb strikes or transient platform movement disturb tire/aero performance"},
+
+  {"id": "front_tire_thermal_saturation", "category": "tires", "meaning": "front tires overheat or saturate thermally, reducing grip"},
+  {"id": "rear_tire_thermal_saturation", "category": "tires", "meaning": "rear tires overheat or saturate thermally, reducing grip"},
+  {"id": "front_tire_wear_limitation", "category": "tires", "meaning": "front tire wear or degradation limits sustained performance"},
+  {"id": "rear_tire_wear_limitation", "category": "tires", "meaning": "rear tire wear or degradation limits traction or stability"},
+  {"id": "tire_pressure_window_issue", "category": "tires", "meaning": "tire pressure or temperature window is not aligned with the operating condition"},
+  {"id": "compound_window_mismatch", "category": "tires", "meaning": "selected compound or working range does not match the stint/track state"},
+
+  {"id": "mechanical_balance_limitation", "category": "mechanical_balance", "meaning": "mechanical setup such as ARB, spring, camber, toe, or differential contributes to handling limitation"},
+  {"id": "front_mechanical_grip_limitation", "category": "mechanical_balance", "meaning": "front mechanical grip or tire loading is insufficient"},
+  {"id": "rear_mechanical_grip_limitation", "category": "mechanical_balance", "meaning": "rear mechanical grip or tire loading is insufficient"},
+  {"id": "arb_stiffness_mismatch", "category": "mechanical_balance", "meaning": "anti-roll bar balance contributes to entry, mid-corner, or exit limitation"},
+  {"id": "spring_damper_mismatch", "category": "mechanical_balance", "meaning": "spring, damper, or heave behavior creates poor transient or platform control"},
+  {"id": "camber_toe_limitation", "category": "mechanical_balance", "meaning": "camber or toe setup limits tire contact patch, wear, or stability"},
+
+  {"id": "brake_balance_too_forward", "category": "braking", "meaning": "brake balance or migration overloads the front axle"},
+  {"id": "brake_balance_too_rearward", "category": "braking", "meaning": "brake balance or migration overloads the rear axle"},
+  {"id": "brake_migration_issue", "category": "braking", "meaning": "brake migration shape is inconsistent with deceleration and corner-entry needs"},
+  {"id": "brake_temperature_issue", "category": "braking", "meaning": "brake temperature or cooling state limits braking consistency"},
+  {"id": "engine_braking_instability", "category": "braking", "meaning": "engine braking map contributes to rear instability on entry"},
+
+  {"id": "diff_entry_instability", "category": "differential_power", "meaning": "differential behavior contributes to instability during entry or coast"},
+  {"id": "diff_mid_corner_rotation_limitation", "category": "differential_power", "meaning": "differential behavior limits rotation through mid-corner"},
+  {"id": "diff_exit_traction_limitation", "category": "differential_power", "meaning": "differential behavior limits traction or stability on exit"},
+  {"id": "power_delivery_too_aggressive", "category": "differential_power", "meaning": "torque delivery is too abrupt for available rear grip"},
+  {"id": "traction_limitation", "category": "differential_power", "meaning": "available rear traction limits acceleration or power-down"},
+
+  {"id": "power_unit_deployment_limitation", "category": "power_straight_line", "meaning": "power unit deployment or energy availability limits acceleration"},
+  {"id": "ers_deployment_strategy_issue", "category": "power_straight_line", "meaning": "ERS deployment timing or availability is suboptimal"},
+  {"id": "gear_ratio_mismatch", "category": "power_straight_line", "meaning": "gear selection or ratio behavior limits acceleration or driveability"},
+  {"id": "drag_limited_straight_speed", "category": "power_straight_line", "meaning": "straight-line performance is limited by drag rather than power delivery"},
+
+  {"id": "driver_input_contribution", "category": "driver_input", "meaning": "steering, braking, throttle, or line choice contributes to the observed limitation"},
+  {"id": "excessive_steering_energy", "category": "driver_input", "meaning": "steering inputs add excess front tire energy or scrub"},
+  {"id": "late_brake_release", "category": "driver_input", "meaning": "brake release timing contributes to entry balance or rotation issue"},
+  {"id": "aggressive_throttle_application", "category": "driver_input", "meaning": "throttle application rate contributes to exit instability or tire stress"},
+  {"id": "inconsistent_line_selection", "category": "driver_input", "meaning": "line choice or corner approach varies enough to confound diagnosis"},
+
+  {"id": "track_evolution_effect", "category": "environment_data", "meaning": "track evolution changes grip or lap-time reference during the run"},
+  {"id": "fuel_load_effect", "category": "environment_data", "meaning": "fuel mass or fuel burn changes performance enough to affect diagnosis"},
+  {"id": "wind_sensitivity", "category": "environment_data", "meaning": "wind direction or gust sensitivity contributes to balance changes"},
+  {"id": "sensor_noise_or_data_quality_issue", "category": "environment_data", "meaning": "missing, noisy, or inconsistent telemetry affects diagnosis confidence"}
+]

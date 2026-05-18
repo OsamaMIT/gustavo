@@ -1,0 +1,73 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.hypothesis/
+
+# Virtual environments and local Python installs
+.venv/
+venv/
+env/
+ENV/
+.python-version
+
+# Packaging and build outputs
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Coverage and test reports
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+junit.xml
+
+# Local app/runtime files
+*.log
+logs/
+tmp/
+temp/
+.streamlit/secrets.toml
+dashboard/.streamlit/secrets.toml
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Generated telemetry and validation outputs
+data/raw/*
+data/processed/*
+data/synthetic/*.csv
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/synthetic/.gitkeep
+
+# F1 2020 / simulator export files
+*.jsonl
+*.ld
+*.ibt
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# Local agent/tooling state
+.agents/
+.codex/

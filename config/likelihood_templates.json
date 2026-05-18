@@ -1,0 +1,14 @@
+{
+  "base_weight": 0.8,
+  "mapped_outcome_boost": 10.0,
+  "relevant_hypothesis_boost": 0.6,
+  "non_relevant_no_change_boost": 5.0,
+  "unmapped_relevant_no_change_boost": 2.2,
+  "no_change_patterns": [
+    "no_meaningful_change",
+    "issue_unchanged",
+    "context_not_explanatory",
+    "no_meaningful_degradation",
+    "not_sensitive_to_platform_change"
+  ]
+}

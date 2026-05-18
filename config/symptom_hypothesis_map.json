@@ -1,0 +1,56 @@
+{
+  "medium_speed_entry_to_apex_understeer": ["front_aero_load_limitation", "front_tire_thermal_saturation", "platform_aero_sensitivity", "mechanical_balance_limitation", "front_mechanical_grip_limitation", "excessive_steering_energy", "driver_input_contribution"],
+  "entry_understeer": ["front_aero_load_limitation", "front_tire_thermal_saturation", "front_mechanical_grip_limitation", "brake_balance_too_forward", "brake_migration_issue", "late_brake_release", "excessive_steering_energy"],
+  "entry_oversteer": ["rear_aero_load_limitation", "rear_tire_thermal_saturation", "rear_mechanical_grip_limitation", "brake_balance_too_rearward", "brake_migration_issue", "engine_braking_instability", "diff_entry_instability", "late_brake_release"],
+  "brake_entry_instability": ["brake_balance_too_rearward", "brake_migration_issue", "engine_braking_instability", "rear_mechanical_grip_limitation", "diff_entry_instability", "brake_temperature_issue", "late_brake_release"],
+  "front_locking": ["brake_balance_too_forward", "brake_migration_issue", "front_tire_thermal_saturation", "front_tire_wear_limitation", "front_mechanical_grip_limitation", "brake_temperature_issue"],
+  "rear_locking": ["brake_balance_too_rearward", "brake_migration_issue", "rear_tire_thermal_saturation", "rear_tire_wear_limitation", "rear_mechanical_grip_limitation", "engine_braking_instability"],
+
+  "mid_corner_understeer": ["front_aero_load_limitation", "aero_balance_rearward_shift", "front_tire_thermal_saturation", "front_mechanical_grip_limitation", "arb_stiffness_mismatch", "camber_toe_limitation", "diff_mid_corner_rotation_limitation"],
+  "mid_corner_oversteer": ["rear_aero_load_limitation", "aero_balance_forward_shift", "rear_tire_thermal_saturation", "rear_mechanical_grip_limitation", "arb_stiffness_mismatch", "spring_damper_mismatch", "platform_aero_sensitivity"],
+  "minimum_speed_loss": ["mechanical_balance_limitation", "front_mechanical_grip_limitation", "rear_mechanical_grip_limitation", "tire_pressure_window_issue", "compound_window_mismatch", "fuel_load_effect", "track_evolution_effect"],
+  "poor_rotation": ["front_mechanical_grip_limitation", "aero_balance_rearward_shift", "diff_mid_corner_rotation_limitation", "arb_stiffness_mismatch", "camber_toe_limitation", "driver_input_contribution"],
+
+  "exit_understeer": ["front_mechanical_grip_limitation", "diff_mid_corner_rotation_limitation", "diff_exit_traction_limitation", "front_tire_thermal_saturation", "aero_balance_rearward_shift", "driver_input_contribution"],
+  "exit_oversteer": ["rear_aero_load_limitation", "rear_tire_thermal_saturation", "rear_mechanical_grip_limitation", "diff_exit_traction_limitation", "power_delivery_too_aggressive", "aggressive_throttle_application"],
+  "traction_loss": ["rear_mechanical_grip_limitation", "rear_tire_thermal_saturation", "rear_tire_wear_limitation", "diff_exit_traction_limitation", "traction_limitation", "power_delivery_too_aggressive"],
+  "wheelspin_on_exit": ["rear_tire_thermal_saturation", "rear_tire_wear_limitation", "diff_exit_traction_limitation", "power_delivery_too_aggressive", "traction_limitation", "aggressive_throttle_application"],
+  "poor_power_down": ["traction_limitation", "diff_exit_traction_limitation", "power_delivery_too_aggressive", "power_unit_deployment_limitation", "ers_deployment_strategy_issue", "gear_ratio_mismatch", "rear_tire_wear_limitation"],
+
+  "high_speed_understeer": ["front_aero_load_limitation", "aero_balance_rearward_shift", "platform_aero_sensitivity", "ride_height_sensitivity", "pitch_sensitivity", "front_tire_thermal_saturation", "wind_sensitivity"],
+  "high_speed_oversteer": ["rear_aero_load_limitation", "aero_balance_forward_shift", "platform_aero_sensitivity", "ride_height_sensitivity", "pitch_sensitivity", "rear_tire_thermal_saturation", "wind_sensitivity"],
+  "high_speed_instability": ["platform_aero_sensitivity", "ride_height_sensitivity", "pitch_sensitivity", "roll_sensitivity", "bottoming_induced_aero_loss", "wind_sensitivity", "sensor_noise_or_data_quality_issue"],
+  "aero_balance_shift": ["aero_balance_forward_shift", "aero_balance_rearward_shift", "platform_aero_sensitivity", "ride_height_sensitivity", "pitch_sensitivity", "roll_sensitivity", "wind_sensitivity"],
+
+  "low_speed_rotation_deficit": ["front_mechanical_grip_limitation", "diff_mid_corner_rotation_limitation", "arb_stiffness_mismatch", "camber_toe_limitation", "driver_input_contribution"],
+  "low_speed_snap_oversteer": ["rear_mechanical_grip_limitation", "diff_entry_instability", "diff_exit_traction_limitation", "power_delivery_too_aggressive", "aggressive_throttle_application"],
+  "traction_limited_hairpin_exit": ["rear_mechanical_grip_limitation", "rear_tire_thermal_saturation", "diff_exit_traction_limitation", "power_delivery_too_aggressive", "traction_limitation"],
+
+  "long_braking_distance": ["brake_temperature_issue", "brake_balance_too_forward", "front_tire_wear_limitation", "tire_pressure_window_issue", "compound_window_mismatch", "driver_input_contribution"],
+  "brake_instability": ["brake_balance_too_rearward", "brake_migration_issue", "engine_braking_instability", "rear_mechanical_grip_limitation", "diff_entry_instability", "late_brake_release"],
+  "brake_locking": ["brake_balance_too_forward", "brake_balance_too_rearward", "brake_migration_issue", "brake_temperature_issue", "front_tire_wear_limitation", "rear_tire_wear_limitation"],
+  "brake_fade": ["brake_temperature_issue", "brake_migration_issue", "front_tire_thermal_saturation", "rear_tire_thermal_saturation", "compound_window_mismatch"],
+  "brake_balance_sensitivity": ["brake_balance_too_forward", "brake_balance_too_rearward", "brake_migration_issue", "engine_braking_instability", "driver_input_contribution"],
+
+  "front_tire_overheating": ["front_tire_thermal_saturation", "front_aero_load_limitation", "aero_balance_forward_shift", "tire_pressure_window_issue", "compound_window_mismatch", "excessive_steering_energy"],
+  "rear_tire_overheating": ["rear_tire_thermal_saturation", "rear_aero_load_limitation", "aero_balance_rearward_shift", "tire_pressure_window_issue", "compound_window_mismatch", "power_delivery_too_aggressive"],
+  "thermal_degradation": ["front_tire_thermal_saturation", "rear_tire_thermal_saturation", "tire_pressure_window_issue", "compound_window_mismatch", "track_evolution_effect", "fuel_load_effect"],
+  "excessive_wear": ["front_tire_wear_limitation", "rear_tire_wear_limitation", "camber_toe_limitation", "tire_pressure_window_issue", "compound_window_mismatch", "driver_input_contribution"],
+  "pace_falloff_over_stint": ["front_tire_thermal_saturation", "rear_tire_thermal_saturation", "front_tire_wear_limitation", "rear_tire_wear_limitation", "fuel_load_effect", "track_evolution_effect"],
+
+  "bottoming": ["bottoming_induced_aero_loss", "ride_height_sensitivity", "spring_damper_mismatch", "platform_aero_sensitivity", "excess_drag_configuration"],
+  "ride_height_sensitivity": ["ride_height_sensitivity", "platform_aero_sensitivity", "bottoming_induced_aero_loss", "pitch_sensitivity", "wind_sensitivity"],
+  "kerb_instability": ["kerb_platform_disturbance", "spring_damper_mismatch", "roll_sensitivity", "rear_mechanical_grip_limitation", "driver_input_contribution"],
+  "pitch_sensitivity": ["pitch_sensitivity", "platform_aero_sensitivity", "aero_balance_forward_shift", "aero_balance_rearward_shift", "ride_height_sensitivity"],
+  "roll_sensitivity": ["roll_sensitivity", "platform_aero_sensitivity", "arb_stiffness_mismatch", "spring_damper_mismatch", "rear_mechanical_grip_limitation"],
+
+  "straight_line_speed_deficit": ["excess_drag_configuration", "drag_limited_straight_speed", "power_unit_deployment_limitation", "ers_deployment_strategy_issue", "gear_ratio_mismatch"],
+  "poor_acceleration": ["power_unit_deployment_limitation", "ers_deployment_strategy_issue", "gear_ratio_mismatch", "traction_limitation", "drag_limited_straight_speed"],
+  "drag_sensitivity": ["excess_drag_configuration", "drag_limited_straight_speed", "aero_balance_forward_shift", "aero_balance_rearward_shift", "wind_sensitivity"],
+  "ers_deployment_deficit": ["ers_deployment_strategy_issue", "power_unit_deployment_limitation", "gear_ratio_mismatch", "sensor_noise_or_data_quality_issue"],
+
+  "aggressive_steering_inputs": ["excessive_steering_energy", "driver_input_contribution", "front_tire_thermal_saturation", "front_tire_wear_limitation", "inconsistent_line_selection"],
+  "brake_release_instability": ["late_brake_release", "driver_input_contribution", "brake_migration_issue", "engine_braking_instability", "diff_entry_instability"],
+  "throttle_application_instability": ["aggressive_throttle_application", "driver_input_contribution", "power_delivery_too_aggressive", "diff_exit_traction_limitation", "traction_limitation"],
+  "inconsistent_cornering": ["inconsistent_line_selection", "driver_input_contribution", "track_evolution_effect", "sensor_noise_or_data_quality_issue", "fuel_load_effect"]
+}

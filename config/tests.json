@@ -1,0 +1,274 @@
+[
+  {
+    "test_id": "T1",
+    "name": "front_aero_balance_sensitivity_test",
+    "description": "Vary front aero balance around the observed operating condition and measure balance and tire response.",
+    "f1_interpretation": "CFD/simulator front-load variation around observed operating condition.",
+    "f1_2020_proxy": "front wing or aero balance setup sweep across repeated runs.",
+    "cost": 2,
+    "outcomes": ["improves_balance_without_temp_penalty", "improves_balance_but_worsens_front_temps", "no_meaningful_change"],
+    "relevant_hypotheses": ["front_aero_load_limitation", "aero_balance_rearward_shift", "front_tire_thermal_saturation", "platform_aero_sensitivity", "front_mechanical_grip_limitation", "excessive_steering_energy"],
+    "outcome_hypothesis_map": {
+      "improves_balance_without_temp_penalty": ["front_aero_load_limitation", "aero_balance_rearward_shift"],
+      "improves_balance_but_worsens_front_temps": ["front_tire_thermal_saturation", "aero_balance_forward_shift"],
+      "no_meaningful_change": ["front_mechanical_grip_limitation", "driver_input_contribution"]
+    }
+  },
+  {
+    "test_id": "T2",
+    "name": "long_run_thermal_test",
+    "description": "Run repeated laps to observe tire temperature stability, pace falloff, and axle-specific degradation.",
+    "f1_interpretation": "tire/stint thermal validation.",
+    "f1_2020_proxy": "repeated laps tracking tire temperature, wear, and pace falloff.",
+    "cost": 3,
+    "outcomes": ["temps_stabilize", "temps_runaway", "degradation_confirms_tire_limitation"],
+    "relevant_hypotheses": ["front_tire_thermal_saturation", "rear_tire_thermal_saturation", "front_tire_wear_limitation", "rear_tire_wear_limitation", "tire_pressure_window_issue", "compound_window_mismatch"],
+    "outcome_hypothesis_map": {
+      "temps_stabilize": ["track_evolution_effect", "fuel_load_effect"],
+      "temps_runaway": ["front_tire_thermal_saturation", "rear_tire_thermal_saturation", "tire_pressure_window_issue"],
+      "degradation_confirms_tire_limitation": ["front_tire_wear_limitation", "rear_tire_wear_limitation", "compound_window_mismatch"]
+    }
+  },
+  {
+    "test_id": "T3",
+    "name": "platform_sensitivity_test",
+    "description": "Perturb ride height, pitch, roll, or platform state and measure aero/handling sensitivity.",
+    "f1_interpretation": "ride-height, pitch, roll, or aero-platform sensitivity test.",
+    "f1_2020_proxy": "ride-height, suspension, or rake setup comparison.",
+    "cost": 4,
+    "outcomes": ["sensitive_to_platform_change", "not_sensitive_to_platform_change"],
+    "relevant_hypotheses": ["platform_aero_sensitivity", "ride_height_sensitivity", "pitch_sensitivity", "roll_sensitivity", "bottoming_induced_aero_loss", "wind_sensitivity"],
+    "outcome_hypothesis_map": {
+      "sensitive_to_platform_change": ["platform_aero_sensitivity", "ride_height_sensitivity", "pitch_sensitivity", "roll_sensitivity", "bottoming_induced_aero_loss"],
+      "not_sensitive_to_platform_change": ["mechanical_balance_limitation", "driver_input_contribution"]
+    }
+  },
+  {
+    "test_id": "T4",
+    "name": "mechanical_balance_sweep",
+    "description": "Sweep ARB, spring, damper, camber, or toe parameters and measure handling response.",
+    "f1_interpretation": "vehicle-dynamics setup study.",
+    "f1_2020_proxy": "front/rear suspension, ARB, camber, toe, and differential setup comparison.",
+    "cost": 2,
+    "outcomes": ["mechanical_change_improves_balance", "mechanical_change_worsens_balance", "no_meaningful_change"],
+    "relevant_hypotheses": ["mechanical_balance_limitation", "front_mechanical_grip_limitation", "rear_mechanical_grip_limitation", "arb_stiffness_mismatch", "spring_damper_mismatch", "camber_toe_limitation"],
+    "outcome_hypothesis_map": {
+      "mechanical_change_improves_balance": ["mechanical_balance_limitation", "front_mechanical_grip_limitation", "rear_mechanical_grip_limitation", "arb_stiffness_mismatch", "spring_damper_mismatch", "camber_toe_limitation"],
+      "mechanical_change_worsens_balance": ["arb_stiffness_mismatch", "spring_damper_mismatch"],
+      "no_meaningful_change": ["platform_aero_sensitivity", "driver_input_contribution"]
+    }
+  },
+  {
+    "test_id": "T5",
+    "name": "driver_input_normalization_test",
+    "description": "Compare smooth and aggressive input runs to quantify driver contribution.",
+    "f1_interpretation": "driver-in-loop input comparison.",
+    "f1_2020_proxy": "smooth driving run versus aggressive driving run using identical setup.",
+    "cost": 1,
+    "outcomes": ["issue_reduced_with_smoother_inputs", "issue_unchanged"],
+    "relevant_hypotheses": ["driver_input_contribution", "excessive_steering_energy", "late_brake_release", "aggressive_throttle_application", "inconsistent_line_selection"],
+    "outcome_hypothesis_map": {
+      "issue_reduced_with_smoother_inputs": ["driver_input_contribution", "excessive_steering_energy", "late_brake_release", "aggressive_throttle_application", "inconsistent_line_selection"],
+      "issue_unchanged": ["front_aero_load_limitation", "rear_aero_load_limitation", "mechanical_balance_limitation", "platform_aero_sensitivity"]
+    }
+  },
+  {
+    "test_id": "T6",
+    "name": "combined_aero_tire_interaction_test",
+    "description": "Test whether added aero load produces sustained balance gain or creates thermal degradation.",
+    "f1_interpretation": "test whether increased load worsens tire stress over a stint.",
+    "f1_2020_proxy": "wing balance sweep over a longer run.",
+    "cost": 5,
+    "outcomes": ["aero_gain_sustained_over_stint", "aero_gain_lost_to_thermal_degradation", "no_meaningful_change"],
+    "relevant_hypotheses": ["front_aero_load_limitation", "rear_aero_load_limitation", "front_tire_thermal_saturation", "rear_tire_thermal_saturation", "aero_balance_forward_shift", "aero_balance_rearward_shift", "compound_window_mismatch"],
+    "outcome_hypothesis_map": {
+      "aero_gain_sustained_over_stint": ["front_aero_load_limitation", "rear_aero_load_limitation", "aero_balance_forward_shift", "aero_balance_rearward_shift"],
+      "aero_gain_lost_to_thermal_degradation": ["front_tire_thermal_saturation", "rear_tire_thermal_saturation", "compound_window_mismatch"],
+      "no_meaningful_change": ["mechanical_balance_limitation", "driver_input_contribution"]
+    }
+  },
+  {
+    "test_id": "T7",
+    "name": "rear_aero_balance_sensitivity_test",
+    "description": "Vary rear load and aero balance to isolate high-speed rear stability and exit effects.",
+    "f1_interpretation": "rear-load CFD/simulator variation around observed operating condition.",
+    "f1_2020_proxy": "rear wing or aero balance setup sweep.",
+    "cost": 2,
+    "outcomes": ["rear_stability_improves", "rear_stability_improves_but_drag_cost_rises", "no_meaningful_change"],
+    "relevant_hypotheses": ["rear_aero_load_limitation", "aero_balance_forward_shift", "rear_tire_thermal_saturation", "excess_drag_configuration", "drag_limited_straight_speed"],
+    "outcome_hypothesis_map": {
+      "rear_stability_improves": ["rear_aero_load_limitation", "aero_balance_forward_shift"],
+      "rear_stability_improves_but_drag_cost_rises": ["rear_aero_load_limitation", "excess_drag_configuration", "drag_limited_straight_speed"],
+      "no_meaningful_change": ["rear_mechanical_grip_limitation", "diff_exit_traction_limitation"]
+    }
+  },
+  {
+    "test_id": "T8",
+    "name": "brake_balance_migration_test",
+    "description": "Sweep brake balance and migration shape to isolate lock-up and entry instability causes.",
+    "f1_interpretation": "brake-by-wire, migration, and balance correlation test.",
+    "f1_2020_proxy": "front/rear brake bias comparison across repeated braking zones.",
+    "cost": 2,
+    "outcomes": ["forward_bias_improves", "rearward_bias_improves", "migration_change_improves", "no_meaningful_change"],
+    "relevant_hypotheses": ["brake_balance_too_forward", "brake_balance_too_rearward", "brake_migration_issue", "engine_braking_instability", "late_brake_release"],
+    "outcome_hypothesis_map": {
+      "forward_bias_improves": ["brake_balance_too_rearward", "engine_braking_instability"],
+      "rearward_bias_improves": ["brake_balance_too_forward"],
+      "migration_change_improves": ["brake_migration_issue", "late_brake_release"],
+      "no_meaningful_change": ["mechanical_balance_limitation", "driver_input_contribution"]
+    }
+  },
+  {
+    "test_id": "T9",
+    "name": "differential_power_delivery_sweep",
+    "description": "Sweep differential and torque delivery settings across entry, mid-corner, and exit.",
+    "f1_interpretation": "differential map and torque delivery correlation test.",
+    "f1_2020_proxy": "on/off throttle differential and throttle map comparison.",
+    "cost": 2,
+    "outcomes": ["entry_stability_improves", "mid_corner_rotation_improves", "exit_traction_improves", "no_meaningful_change"],
+    "relevant_hypotheses": ["diff_entry_instability", "diff_mid_corner_rotation_limitation", "diff_exit_traction_limitation", "power_delivery_too_aggressive", "traction_limitation"],
+    "outcome_hypothesis_map": {
+      "entry_stability_improves": ["diff_entry_instability"],
+      "mid_corner_rotation_improves": ["diff_mid_corner_rotation_limitation"],
+      "exit_traction_improves": ["diff_exit_traction_limitation", "power_delivery_too_aggressive", "traction_limitation"],
+      "no_meaningful_change": ["rear_aero_load_limitation", "rear_mechanical_grip_limitation"]
+    }
+  },
+  {
+    "test_id": "T10",
+    "name": "straight_line_drag_power_test",
+    "description": "Compare straight-line acceleration and top speed against wing/drag and power deployment assumptions.",
+    "f1_interpretation": "drag, power unit, and deployment correlation test.",
+    "f1_2020_proxy": "same setup straight-line runs with ERS/deployment and speed trace comparison.",
+    "cost": 3,
+    "outcomes": ["drag_reduction_improves_speed", "deployment_change_improves_acceleration", "gear_change_improves_acceleration", "no_meaningful_change"],
+    "relevant_hypotheses": ["excess_drag_configuration", "drag_limited_straight_speed", "power_unit_deployment_limitation", "ers_deployment_strategy_issue", "gear_ratio_mismatch"],
+    "outcome_hypothesis_map": {
+      "drag_reduction_improves_speed": ["excess_drag_configuration", "drag_limited_straight_speed"],
+      "deployment_change_improves_acceleration": ["power_unit_deployment_limitation", "ers_deployment_strategy_issue"],
+      "gear_change_improves_acceleration": ["gear_ratio_mismatch"],
+      "no_meaningful_change": ["traction_limitation", "sensor_noise_or_data_quality_issue"]
+    }
+  },
+  {
+    "test_id": "T11",
+    "name": "tire_pressure_window_test",
+    "description": "Sweep tire pressure window and observe temperature, wear, and balance response.",
+    "f1_interpretation": "tire pressure and working range sensitivity study.",
+    "f1_2020_proxy": "tire pressure setup sweep across matched runs.",
+    "cost": 3,
+    "outcomes": ["pressure_change_improves_window", "pressure_change_worsens_degradation", "no_meaningful_change"],
+    "relevant_hypotheses": ["tire_pressure_window_issue", "compound_window_mismatch", "front_tire_thermal_saturation", "rear_tire_thermal_saturation", "front_tire_wear_limitation", "rear_tire_wear_limitation"],
+    "outcome_hypothesis_map": {
+      "pressure_change_improves_window": ["tire_pressure_window_issue", "compound_window_mismatch"],
+      "pressure_change_worsens_degradation": ["front_tire_thermal_saturation", "rear_tire_thermal_saturation", "front_tire_wear_limitation", "rear_tire_wear_limitation"],
+      "no_meaningful_change": ["aero_balance_forward_shift", "aero_balance_rearward_shift", "mechanical_balance_limitation"]
+    }
+  },
+  {
+    "test_id": "T12",
+    "name": "brake_temperature_capacity_test",
+    "description": "Test whether brake temperatures and cooling state explain fade, lock-up, or distance issues.",
+    "f1_interpretation": "brake cooling and temperature capacity validation.",
+    "f1_2020_proxy": "brake pressure/temperature tracking over repeated braking events.",
+    "cost": 3,
+    "outcomes": ["brake_temps_stable", "brake_temps_runaway", "cooling_change_improves_braking"],
+    "relevant_hypotheses": ["brake_temperature_issue", "brake_balance_too_forward", "brake_balance_too_rearward", "front_tire_thermal_saturation", "rear_tire_thermal_saturation"],
+    "outcome_hypothesis_map": {
+      "brake_temps_stable": ["brake_migration_issue", "driver_input_contribution"],
+      "brake_temps_runaway": ["brake_temperature_issue"],
+      "cooling_change_improves_braking": ["brake_temperature_issue", "brake_balance_too_forward", "brake_balance_too_rearward"]
+    }
+  },
+  {
+    "test_id": "T13",
+    "name": "kerb_platform_disturbance_test",
+    "description": "Compare kerb and non-kerb traces to isolate transient platform disturbance.",
+    "f1_interpretation": "kerb strike, damper, and platform transient validation.",
+    "f1_2020_proxy": "matched laps with and without aggressive kerb usage.",
+    "cost": 2,
+    "outcomes": ["issue_reduced_without_kerb_use", "damper_change_improves_kerb_response", "issue_unchanged"],
+    "relevant_hypotheses": ["kerb_platform_disturbance", "spring_damper_mismatch", "roll_sensitivity", "rear_mechanical_grip_limitation", "driver_input_contribution"],
+    "outcome_hypothesis_map": {
+      "issue_reduced_without_kerb_use": ["kerb_platform_disturbance", "driver_input_contribution"],
+      "damper_change_improves_kerb_response": ["spring_damper_mismatch", "roll_sensitivity"],
+      "issue_unchanged": ["aero_balance_forward_shift", "aero_balance_rearward_shift"]
+    }
+  },
+  {
+    "test_id": "T14",
+    "name": "ride_height_bottoming_test",
+    "description": "Vary ride height and stiffness to isolate bottoming or ride-height window effects.",
+    "f1_interpretation": "plank, ride-height, and aero-platform validation.",
+    "f1_2020_proxy": "ride height and suspension stiffness comparison over high-speed sections.",
+    "cost": 4,
+    "outcomes": ["raising_platform_improves_stability", "stiffness_change_improves_platform", "no_meaningful_change"],
+    "relevant_hypotheses": ["bottoming_induced_aero_loss", "ride_height_sensitivity", "pitch_sensitivity", "roll_sensitivity", "spring_damper_mismatch", "excess_drag_configuration"],
+    "outcome_hypothesis_map": {
+      "raising_platform_improves_stability": ["bottoming_induced_aero_loss", "ride_height_sensitivity"],
+      "stiffness_change_improves_platform": ["spring_damper_mismatch", "pitch_sensitivity", "roll_sensitivity"],
+      "no_meaningful_change": ["wind_sensitivity", "mechanical_balance_limitation"]
+    }
+  },
+  {
+    "test_id": "T15",
+    "name": "ers_deployment_strategy_test",
+    "description": "Compare deployment timing and availability against acceleration deficit.",
+    "f1_interpretation": "ERS and power-unit deployment strategy validation.",
+    "f1_2020_proxy": "ERS mode and deployment trace comparison on straights and exits.",
+    "cost": 2,
+    "outcomes": ["deployment_strategy_improves_acceleration", "energy_limitation_persists", "no_meaningful_change"],
+    "relevant_hypotheses": ["ers_deployment_strategy_issue", "power_unit_deployment_limitation", "gear_ratio_mismatch", "traction_limitation"],
+    "outcome_hypothesis_map": {
+      "deployment_strategy_improves_acceleration": ["ers_deployment_strategy_issue"],
+      "energy_limitation_persists": ["power_unit_deployment_limitation"],
+      "no_meaningful_change": ["drag_limited_straight_speed", "traction_limitation", "gear_ratio_mismatch"]
+    }
+  },
+  {
+    "test_id": "T16",
+    "name": "driver_line_consistency_test",
+    "description": "Compare repeated driver traces and line choices to quantify consistency effects.",
+    "f1_interpretation": "driver-in-loop consistency and reference line study.",
+    "f1_2020_proxy": "matched repeated laps with line, brake, throttle, and steering trace comparison.",
+    "cost": 1,
+    "outcomes": ["line_normalization_reduces_issue", "inputs_remain_inconsistent", "issue_persists_with_consistent_line"],
+    "relevant_hypotheses": ["inconsistent_line_selection", "driver_input_contribution", "excessive_steering_energy", "late_brake_release", "aggressive_throttle_application", "track_evolution_effect"],
+    "outcome_hypothesis_map": {
+      "line_normalization_reduces_issue": ["inconsistent_line_selection", "driver_input_contribution"],
+      "inputs_remain_inconsistent": ["inconsistent_line_selection", "excessive_steering_energy", "late_brake_release", "aggressive_throttle_application"],
+      "issue_persists_with_consistent_line": ["mechanical_balance_limitation", "platform_aero_sensitivity"]
+    }
+  },
+  {
+    "test_id": "T17",
+    "name": "environment_data_quality_check",
+    "description": "Check whether track evolution, fuel load, wind, or sensor quality explains apparent performance changes.",
+    "f1_interpretation": "context normalization and data-quality audit.",
+    "f1_2020_proxy": "compare stint phase, fuel load, weather/wind if logged, and signal completeness.",
+    "cost": 1,
+    "outcomes": ["context_explains_variation", "sensor_quality_issue_found", "context_not_explanatory"],
+    "relevant_hypotheses": ["track_evolution_effect", "fuel_load_effect", "wind_sensitivity", "sensor_noise_or_data_quality_issue"],
+    "outcome_hypothesis_map": {
+      "context_explains_variation": ["track_evolution_effect", "fuel_load_effect", "wind_sensitivity"],
+      "sensor_quality_issue_found": ["sensor_noise_or_data_quality_issue"],
+      "context_not_explanatory": ["mechanical_balance_limitation", "platform_aero_sensitivity"]
+    }
+  },
+  {
+    "test_id": "T18",
+    "name": "tire_wear_degradation_test",
+    "description": "Separate thermal saturation from wear-driven degradation over repeated laps.",
+    "f1_interpretation": "wear, stint phase, and compound degradation validation.",
+    "f1_2020_proxy": "longer run with tire wear, surface temperature, and lap-time falloff tracking.",
+    "cost": 4,
+    "outcomes": ["wear_confirms_front_limitation", "wear_confirms_rear_limitation", "thermal_not_wear_limited", "no_meaningful_degradation"],
+    "relevant_hypotheses": ["front_tire_wear_limitation", "rear_tire_wear_limitation", "front_tire_thermal_saturation", "rear_tire_thermal_saturation", "compound_window_mismatch", "fuel_load_effect"],
+    "outcome_hypothesis_map": {
+      "wear_confirms_front_limitation": ["front_tire_wear_limitation"],
+      "wear_confirms_rear_limitation": ["rear_tire_wear_limitation"],
+      "thermal_not_wear_limited": ["front_tire_thermal_saturation", "rear_tire_thermal_saturation"],
+      "no_meaningful_degradation": ["track_evolution_effect", "sensor_noise_or_data_quality_issue"]
+    }
+  }
+]

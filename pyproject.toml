@@ -1,0 +1,10 @@
+[project]
+name = "telemetry-rd-test-minimization"
+version = "0.1.0"
+description = "Telemetry-driven R&D test minimization prototype for Formula 1 development."
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+

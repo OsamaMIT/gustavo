@@ -1,0 +1,314 @@
+{
+  "T1": {
+    "front_aero_load_limitation": {
+      "improves_balance_without_temp_penalty": 0.78,
+      "improves_balance_but_worsens_front_temps": 0.12,
+      "no_meaningful_change": 0.10
+    },
+    "aero_balance_rearward_shift": {
+      "improves_balance_without_temp_penalty": 0.72,
+      "improves_balance_but_worsens_front_temps": 0.10,
+      "no_meaningful_change": 0.18
+    },
+    "front_tire_thermal_saturation": {
+      "improves_balance_without_temp_penalty": 0.08,
+      "improves_balance_but_worsens_front_temps": 0.82,
+      "no_meaningful_change": 0.10
+    },
+    "front_mechanical_grip_limitation": {
+      "improves_balance_without_temp_penalty": 0.08,
+      "improves_balance_but_worsens_front_temps": 0.07,
+      "no_meaningful_change": 0.85
+    },
+    "driver_input_contribution": {
+      "improves_balance_without_temp_penalty": 0.05,
+      "improves_balance_but_worsens_front_temps": 0.05,
+      "no_meaningful_change": 0.90
+    }
+  },
+  "T5": {
+    "driver_input_contribution": {
+      "issue_reduced_with_smoother_inputs": 0.84,
+      "issue_unchanged": 0.16
+    },
+    "excessive_steering_energy": {
+      "issue_reduced_with_smoother_inputs": 0.78,
+      "issue_unchanged": 0.22
+    },
+    "late_brake_release": {
+      "issue_reduced_with_smoother_inputs": 0.74,
+      "issue_unchanged": 0.26
+    },
+    "aggressive_throttle_application": {
+      "issue_reduced_with_smoother_inputs": 0.76,
+      "issue_unchanged": 0.24
+    },
+    "mechanical_balance_limitation": {
+      "issue_reduced_with_smoother_inputs": 0.12,
+      "issue_unchanged": 0.88
+    },
+    "platform_aero_sensitivity": {
+      "issue_reduced_with_smoother_inputs": 0.10,
+      "issue_unchanged": 0.90
+    }
+  },
+  "T6": {
+    "front_aero_load_limitation": {
+      "aero_gain_sustained_over_stint": 0.72,
+      "aero_gain_lost_to_thermal_degradation": 0.20,
+      "no_meaningful_change": 0.08
+    },
+    "rear_aero_load_limitation": {
+      "aero_gain_sustained_over_stint": 0.72,
+      "aero_gain_lost_to_thermal_degradation": 0.20,
+      "no_meaningful_change": 0.08
+    },
+    "front_tire_thermal_saturation": {
+      "aero_gain_sustained_over_stint": 0.08,
+      "aero_gain_lost_to_thermal_degradation": 0.84,
+      "no_meaningful_change": 0.08
+    },
+    "rear_tire_thermal_saturation": {
+      "aero_gain_sustained_over_stint": 0.08,
+      "aero_gain_lost_to_thermal_degradation": 0.84,
+      "no_meaningful_change": 0.08
+    },
+    "compound_window_mismatch": {
+      "aero_gain_sustained_over_stint": 0.12,
+      "aero_gain_lost_to_thermal_degradation": 0.70,
+      "no_meaningful_change": 0.18
+    }
+  },
+  "T7": {
+    "rear_aero_load_limitation": {
+      "rear_stability_improves": 0.76,
+      "rear_stability_improves_but_drag_cost_rises": 0.18,
+      "no_meaningful_change": 0.06
+    },
+    "aero_balance_forward_shift": {
+      "rear_stability_improves": 0.74,
+      "rear_stability_improves_but_drag_cost_rises": 0.10,
+      "no_meaningful_change": 0.16
+    },
+    "rear_tire_thermal_saturation": {
+      "rear_stability_improves": 0.10,
+      "rear_stability_improves_but_drag_cost_rises": 0.12,
+      "no_meaningful_change": 0.78
+    },
+    "excess_drag_configuration": {
+      "rear_stability_improves": 0.08,
+      "rear_stability_improves_but_drag_cost_rises": 0.82,
+      "no_meaningful_change": 0.10
+    },
+    "drag_limited_straight_speed": {
+      "rear_stability_improves": 0.08,
+      "rear_stability_improves_but_drag_cost_rises": 0.78,
+      "no_meaningful_change": 0.14
+    }
+  },
+  "T9": {
+    "diff_entry_instability": {
+      "entry_stability_improves": 0.80,
+      "mid_corner_rotation_improves": 0.06,
+      "exit_traction_improves": 0.06,
+      "no_meaningful_change": 0.08
+    },
+    "diff_mid_corner_rotation_limitation": {
+      "entry_stability_improves": 0.06,
+      "mid_corner_rotation_improves": 0.80,
+      "exit_traction_improves": 0.06,
+      "no_meaningful_change": 0.08
+    },
+    "diff_exit_traction_limitation": {
+      "entry_stability_improves": 0.05,
+      "mid_corner_rotation_improves": 0.07,
+      "exit_traction_improves": 0.80,
+      "no_meaningful_change": 0.08
+    },
+    "traction_limitation": {
+      "entry_stability_improves": 0.05,
+      "mid_corner_rotation_improves": 0.05,
+      "exit_traction_improves": 0.62,
+      "no_meaningful_change": 0.28
+    },
+    "power_delivery_too_aggressive": {
+      "entry_stability_improves": 0.05,
+      "mid_corner_rotation_improves": 0.05,
+      "exit_traction_improves": 0.72,
+      "no_meaningful_change": 0.18
+    }
+  },
+  "T10": {
+    "excess_drag_configuration": {
+      "drag_reduction_improves_speed": 0.82,
+      "deployment_change_improves_acceleration": 0.06,
+      "gear_change_improves_acceleration": 0.04,
+      "no_meaningful_change": 0.08
+    },
+    "drag_limited_straight_speed": {
+      "drag_reduction_improves_speed": 0.78,
+      "deployment_change_improves_acceleration": 0.06,
+      "gear_change_improves_acceleration": 0.04,
+      "no_meaningful_change": 0.12
+    },
+    "power_unit_deployment_limitation": {
+      "drag_reduction_improves_speed": 0.05,
+      "deployment_change_improves_acceleration": 0.78,
+      "gear_change_improves_acceleration": 0.07,
+      "no_meaningful_change": 0.10
+    },
+    "ers_deployment_strategy_issue": {
+      "drag_reduction_improves_speed": 0.06,
+      "deployment_change_improves_acceleration": 0.80,
+      "gear_change_improves_acceleration": 0.04,
+      "no_meaningful_change": 0.10
+    },
+    "gear_ratio_mismatch": {
+      "drag_reduction_improves_speed": 0.05,
+      "deployment_change_improves_acceleration": 0.07,
+      "gear_change_improves_acceleration": 0.80,
+      "no_meaningful_change": 0.08
+    },
+    "traction_limitation": {
+      "drag_reduction_improves_speed": 0.06,
+      "deployment_change_improves_acceleration": 0.10,
+      "gear_change_improves_acceleration": 0.08,
+      "no_meaningful_change": 0.76
+    }
+  },
+  "T12": {
+    "brake_temperature_issue": {
+      "brake_temps_stable": 0.08,
+      "brake_temps_runaway": 0.58,
+      "cooling_change_improves_braking": 0.34
+    },
+    "brake_balance_too_forward": {
+      "brake_temps_stable": 0.18,
+      "brake_temps_runaway": 0.12,
+      "cooling_change_improves_braking": 0.70
+    },
+    "brake_balance_too_rearward": {
+      "brake_temps_stable": 0.18,
+      "brake_temps_runaway": 0.12,
+      "cooling_change_improves_braking": 0.70
+    },
+    "brake_migration_issue": {
+      "brake_temps_stable": 0.78,
+      "brake_temps_runaway": 0.08,
+      "cooling_change_improves_braking": 0.14
+    }
+  },
+  "T14": {
+    "bottoming_induced_aero_loss": {
+      "raising_platform_improves_stability": 0.82,
+      "stiffness_change_improves_platform": 0.10,
+      "no_meaningful_change": 0.08
+    },
+    "ride_height_sensitivity": {
+      "raising_platform_improves_stability": 0.76,
+      "stiffness_change_improves_platform": 0.14,
+      "no_meaningful_change": 0.10
+    },
+    "pitch_sensitivity": {
+      "raising_platform_improves_stability": 0.14,
+      "stiffness_change_improves_platform": 0.76,
+      "no_meaningful_change": 0.10
+    },
+    "roll_sensitivity": {
+      "raising_platform_improves_stability": 0.12,
+      "stiffness_change_improves_platform": 0.78,
+      "no_meaningful_change": 0.10
+    },
+    "spring_damper_mismatch": {
+      "raising_platform_improves_stability": 0.08,
+      "stiffness_change_improves_platform": 0.82,
+      "no_meaningful_change": 0.10
+    }
+  },
+  "T16": {
+    "inconsistent_line_selection": {
+      "line_normalization_reduces_issue": 0.72,
+      "inputs_remain_inconsistent": 0.20,
+      "issue_persists_with_consistent_line": 0.08
+    },
+    "excessive_steering_energy": {
+      "line_normalization_reduces_issue": 0.18,
+      "inputs_remain_inconsistent": 0.74,
+      "issue_persists_with_consistent_line": 0.08
+    },
+    "late_brake_release": {
+      "line_normalization_reduces_issue": 0.14,
+      "inputs_remain_inconsistent": 0.76,
+      "issue_persists_with_consistent_line": 0.10
+    },
+    "aggressive_throttle_application": {
+      "line_normalization_reduces_issue": 0.14,
+      "inputs_remain_inconsistent": 0.76,
+      "issue_persists_with_consistent_line": 0.10
+    },
+    "mechanical_balance_limitation": {
+      "line_normalization_reduces_issue": 0.08,
+      "inputs_remain_inconsistent": 0.08,
+      "issue_persists_with_consistent_line": 0.84
+    },
+    "platform_aero_sensitivity": {
+      "line_normalization_reduces_issue": 0.08,
+      "inputs_remain_inconsistent": 0.08,
+      "issue_persists_with_consistent_line": 0.84
+    }
+  },
+  "T17": {
+    "track_evolution_effect": {
+      "context_explains_variation": 0.82,
+      "sensor_quality_issue_found": 0.05,
+      "context_not_explanatory": 0.13
+    },
+    "fuel_load_effect": {
+      "context_explains_variation": 0.78,
+      "sensor_quality_issue_found": 0.05,
+      "context_not_explanatory": 0.17
+    },
+    "wind_sensitivity": {
+      "context_explains_variation": 0.76,
+      "sensor_quality_issue_found": 0.05,
+      "context_not_explanatory": 0.19
+    },
+    "sensor_noise_or_data_quality_issue": {
+      "context_explains_variation": 0.06,
+      "sensor_quality_issue_found": 0.82,
+      "context_not_explanatory": 0.12
+    }
+  },
+  "T18": {
+    "front_tire_wear_limitation": {
+      "wear_confirms_front_limitation": 0.82,
+      "wear_confirms_rear_limitation": 0.05,
+      "thermal_not_wear_limited": 0.06,
+      "no_meaningful_degradation": 0.07
+    },
+    "rear_tire_wear_limitation": {
+      "wear_confirms_front_limitation": 0.05,
+      "wear_confirms_rear_limitation": 0.82,
+      "thermal_not_wear_limited": 0.06,
+      "no_meaningful_degradation": 0.07
+    },
+    "front_tire_thermal_saturation": {
+      "wear_confirms_front_limitation": 0.06,
+      "wear_confirms_rear_limitation": 0.05,
+      "thermal_not_wear_limited": 0.82,
+      "no_meaningful_degradation": 0.07
+    },
+    "rear_tire_thermal_saturation": {
+      "wear_confirms_front_limitation": 0.05,
+      "wear_confirms_rear_limitation": 0.06,
+      "thermal_not_wear_limited": 0.82,
+      "no_meaningful_degradation": 0.07
+    },
+    "compound_window_mismatch": {
+      "wear_confirms_front_limitation": 0.08,
+      "wear_confirms_rear_limitation": 0.08,
+      "thermal_not_wear_limited": 0.62,
+      "no_meaningful_degradation": 0.22
+    }
+  }
+}
