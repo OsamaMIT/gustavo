@@ -48,6 +48,7 @@ dashboard/.streamlit/secrets.toml
 data/raw/*
 data/processed/*
 data/synthetic/*.csv
+data/fastf1_cache/
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 !data/synthetic/.gitkeep

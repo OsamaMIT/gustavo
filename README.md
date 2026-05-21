@@ -41,7 +41,7 @@ pip install -r requirements.txt
 ```
 
 Streamlit is included for the optional dashboard. The core engine and CLI remain
-CSV-first and do not require F1 2020 to be installed.
+CSV-first. FastF1 is included for optional public-session telemetry validation.
 
 ## CLI Usage
 
@@ -69,10 +69,34 @@ Convert optional F1 2020 JSONL telemetry into the internal CSV schema:
 python -m src.cli convert-f1-2020 --input logs/session.jsonl --output data/raw/session.csv
 ```
 
+Fetch a public FastF1 lap into the internal CSV schema:
+
+```bash
+python -m src.cli fetch-fastf1 --year 2023 --event Bahrain --session Q --driver VER
+```
+
+Check whether the FastF1 package and public data endpoints are reachable:
+
+```bash
+python -m src.cli check-fastf1 --year 2023 --event Bahrain --session Q
+```
+
 Diagnose any compatible CSV:
 
 ```bash
 python -m src.cli diagnose-csv --file data/raw/session.csv
+```
+
+Run the FastF1 smoke diagnosis plus the optimizer validation benchmark:
+
+```bash
+python -m src.cli validate-fastf1 --year 2023 --event Bahrain --session Q --driver VER --trials 50
+```
+
+Reuse an already converted FastF1 CSV:
+
+```bash
+python -m src.cli validate-fastf1 --file data/raw/fastf1_2023_bahrain_q_ver.csv --trials 50
 ```
 
 Run validation:
@@ -121,6 +145,7 @@ The dashboard supports:
 
 - synthetic scenario selection,
 - CSV upload,
+- FastF1 session fetch and diagnosis,
 - detected symptoms and evidence,
 - feature summary,
 - belief distribution,
@@ -145,6 +170,28 @@ internal schema:
 
 The engine intentionally remains CSV-based. There is no live UDP reader in this
 version.
+
+## FastF1 Telemetry
+
+FastF1 mode fetches a selected public F1 session lap, writes an internal CSV,
+diagnoses that lap with the same feature extraction and optimizer path, then can
+run the existing optimizer-versus-baseline benchmark in the same command.
+
+FastF1 provides public timing, car telemetry, and position data. It does not
+provide labeled R&D fault causes or real test outcomes, so this mode validates
+integration mechanics and optimizer behavior, not real-world R&D accuracy.
+
+The adapter maps available FastF1 channels into the internal schema:
+
+- speed, throttle, brake, gear, RPM, DRS,
+- lap/session timing and integrated distance,
+- derived longitudinal and lateral acceleration,
+- estimated steering demand,
+- inferred segment labels.
+
+Public FastF1 telemetry does not include tire temperatures, tire wear, brake
+temperatures, suspension, or wheel slip channels. Those optional internal fields
+are left blank and the loader reports them as unavailable.
 
 ## Validation
 
@@ -206,6 +253,7 @@ src/
   telemetry_loader.py
   synthetic_data.py
   feature_extractor.py
+  fastf1_adapter.py
   symptom_identifier.py
   hypothesis_model.py
   test_library.py

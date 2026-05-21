@@ -9,6 +9,11 @@ from typing import Any, Mapping
 
 from .diagnosis_engine import DiagnosisEngine, ExecutedTest
 from .f1_2020_adapter import convert_f1_2020_jsonl_to_csv
+from .fastf1_adapter import (
+    DEFAULT_FASTF1_CACHE_DIR,
+    check_fastf1_data_access,
+    fetch_fastf1_to_csv,
+)
 from .feature_extractor import extract_features
 from .hypothesis_model import top_hypothesis
 from .outcome_classifier import sample_outcome
@@ -32,6 +37,35 @@ def _format_belief(belief: Mapping[str, float]) -> str:
             belief.items(), key=lambda item: item[1], reverse=True
         )
     )
+
+
+def _format_top_belief(belief: Mapping[str, float], limit: int = 8) -> str:
+    return "\n".join(
+        f"  {hypothesis}: {probability:.3f}"
+        for hypothesis, probability in sorted(
+            belief.items(), key=lambda item: item[1], reverse=True
+        )[:limit]
+    )
+
+
+def _safe_slug(value: Any) -> str:
+    slug = "".join(
+        character.lower() if character.isalnum() else "_"
+        for character in str(value).strip()
+    ).strip("_")
+    return slug or "unknown"
+
+
+def _fastf1_output_path(args: argparse.Namespace) -> Path:
+    if args.output:
+        return Path(args.output)
+    lap_suffix = f"_lap_{args.lap}" if getattr(args, "lap", None) else ""
+    filename = (
+        f"fastf1_{int(args.year)}_{_safe_slug(args.event)}_"
+        f"{_safe_slug(args.session_name)}_{_safe_slug(args.driver)}"
+        f"{lap_suffix}.csv"
+    )
+    return Path("data/raw") / filename
 
 
 def _print_feature_summary(features: Mapping[str, Any]) -> None:
@@ -218,6 +252,10 @@ def validate_command(args: argparse.Namespace) -> None:
         objective=args.objective,
         min_expected_information_gain=args.min_expected_information_gain,
     )
+    _print_validation_result(result)
+
+
+def _print_validation_result(result: Mapping[str, Any]) -> None:
     print(
         f"Validation trials={result['trials']} seed={result['seed']} "
         f"threshold={result['confidence_threshold']:.2f}"
@@ -237,6 +275,119 @@ def validate_command(args: argparse.Namespace) -> None:
             f"{summary['threshold_reach_rate']:.3f}      "
             f"{cost_correct_text}"
         )
+
+
+def fetch_fastf1_command(args: argparse.Namespace) -> None:
+    try:
+        path = fetch_fastf1_to_csv(
+            year=args.year,
+            event=args.event,
+            session_name=args.session_name,
+            driver=args.driver,
+            lap=args.lap,
+            output=_fastf1_output_path(args),
+            cache_dir=args.cache_dir,
+        )
+    except RuntimeError as exc:
+        raise SystemExit(f"FastF1 fetch failed: {exc}") from exc
+    print(f"Fetched FastF1 telemetry to CSV: {path}")
+
+
+def check_fastf1_command(args: argparse.Namespace) -> None:
+    results = check_fastf1_data_access(
+        year=args.year,
+        event=args.event,
+        session_name=args.session_name,
+        cache_dir=args.cache_dir,
+        timeout=args.timeout,
+    )
+    print(f"FastF1 data access check year={args.year}")
+    for result in results:
+        print(
+            f"  {result['status']:6s} {result['name']}: "
+            f"{result['detail']} ({result['url']})"
+        )
+    if any(result["status"] == "failed" for result in results):
+        raise SystemExit(1)
+
+
+def _run_fastf1_diagnosis(path: str | Path, args: argparse.Namespace) -> None:
+    engine = _build_engine(args)
+    dataset = load_telemetry_csv(path)
+    features = extract_features(dataset)
+    symptoms = identify_symptoms(features)
+    symptom = symptoms[0]
+    belief = engine.initialize_belief(features)
+    available = engine.available_tests_for_symptom(symptom.symptom_id)
+    rankings = engine.rank_available_tests(belief, available)
+    recommended = engine.recommend_next_test(belief, available)
+    top_id, top_probability = top_hypothesis(belief)
+
+    print(f"FastF1 telemetry file: {Path(path)}")
+    if dataset.warnings:
+        print("Loader warnings:")
+        for warning in dataset.warnings:
+            print(f"  - {warning}")
+    _print_feature_summary(features)
+    print(f"Identified symptom: {symptom.symptom_id} confidence={symptom.confidence:.3f}")
+    print("Top symptom candidates:")
+    for candidate in symptoms[:5]:
+        print(f"  {candidate.symptom_id}: {candidate.confidence:.3f}")
+    print(f"Top hypothesis: {top_id} confidence={top_probability:.3f}")
+    print("Top hypothesis candidates:")
+    print(_format_top_belief(belief))
+    print("Top ranked R&D tests:")
+    for rank, item in enumerate(rankings[:5], start=1):
+        test = engine.tests[item.test_id]
+        print(
+            f"  {rank}. {item.test_id} {test.name} "
+            f"score={item.score:.4f}, eig={item.expected_information_gain:.4f}, "
+            f"cost={item.cost:g}"
+        )
+    if recommended is None:
+        print("Recommended test: none")
+    else:
+        print(f"Recommended test: {recommended} {engine.tests[recommended].name}")
+
+
+def validate_fastf1_command(args: argparse.Namespace) -> None:
+    if args.file:
+        path = Path(args.file)
+    else:
+        missing = [
+            name
+            for name in ("year", "event", "session_name", "driver")
+            if getattr(args, name) is None
+        ]
+        if missing:
+            raise ValueError(
+                "validate-fastf1 requires --file or all fetch arguments: "
+                "--year, --event, --session, --driver"
+            )
+        try:
+            path = fetch_fastf1_to_csv(
+                year=args.year,
+                event=args.event,
+                session_name=args.session_name,
+                driver=args.driver,
+                lap=args.lap,
+                output=_fastf1_output_path(args),
+                cache_dir=args.cache_dir,
+            )
+        except RuntimeError as exc:
+            raise SystemExit(f"FastF1 fetch failed: {exc}") from exc
+
+    _run_fastf1_diagnosis(path, args)
+    print()
+    result = compare_strategies(
+        trials=args.trials,
+        seed=args.seed,
+        confidence_threshold=args.confidence_threshold,
+        max_tests=args.max_tests,
+        objective=args.objective,
+        min_expected_information_gain=args.min_expected_information_gain,
+    )
+    _print_validation_result(result)
 
 
 def convert_f1_2020_command(args: argparse.Namespace) -> None:
@@ -349,6 +500,42 @@ def build_parser() -> argparse.ArgumentParser:
     validate.add_argument("--objective", default="eig_per_cost")
     validate.add_argument("--min-expected-information-gain", type=float, default=0.15)
     validate.set_defaults(func=validate_command)
+
+    fetch_fastf1 = subparsers.add_parser("fetch-fastf1")
+    fetch_fastf1.add_argument("--year", type=int, required=True)
+    fetch_fastf1.add_argument("--event", required=True)
+    fetch_fastf1.add_argument("--session", dest="session_name", required=True)
+    fetch_fastf1.add_argument("--driver", required=True)
+    fetch_fastf1.add_argument("--lap", type=int)
+    fetch_fastf1.add_argument("--output")
+    fetch_fastf1.add_argument("--cache-dir", default=str(DEFAULT_FASTF1_CACHE_DIR))
+    fetch_fastf1.set_defaults(func=fetch_fastf1_command)
+
+    check_fastf1 = subparsers.add_parser("check-fastf1")
+    check_fastf1.add_argument("--year", type=int, default=2023)
+    check_fastf1.add_argument("--event")
+    check_fastf1.add_argument("--session", dest="session_name")
+    check_fastf1.add_argument("--cache-dir", default=str(DEFAULT_FASTF1_CACHE_DIR))
+    check_fastf1.add_argument("--timeout", type=float, default=5.0)
+    check_fastf1.set_defaults(func=check_fastf1_command)
+
+    validate_fastf1 = subparsers.add_parser("validate-fastf1")
+    validate_fastf1.add_argument("--file")
+    validate_fastf1.add_argument("--year", type=int)
+    validate_fastf1.add_argument("--event")
+    validate_fastf1.add_argument("--session", dest="session_name")
+    validate_fastf1.add_argument("--driver")
+    validate_fastf1.add_argument("--lap", type=int)
+    validate_fastf1.add_argument("--output")
+    validate_fastf1.add_argument("--cache-dir", default=str(DEFAULT_FASTF1_CACHE_DIR))
+    validate_fastf1.add_argument("--trials", type=int, default=100)
+    validate_fastf1.add_argument("--seed", type=int, default=123)
+    validate_fastf1.add_argument("--confidence-threshold", type=float, default=0.80)
+    validate_fastf1.add_argument("--max-tests", type=int, default=5)
+    validate_fastf1.add_argument("--objective", default="eig_per_cost")
+    validate_fastf1.add_argument("--min-expected-information-gain", type=float, default=0.15)
+    validate_fastf1.add_argument("--two-step", action="store_true")
+    validate_fastf1.set_defaults(func=validate_fastf1_command)
 
     calibrate = subparsers.add_parser("calibrate")
     calibrate.add_argument("--trials", type=int, default=100)
